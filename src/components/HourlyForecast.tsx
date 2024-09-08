@@ -9,7 +9,7 @@ interface HourlyForecastProps {
 
 const HourlyForecast: React.FC<HourlyForecastProps> = ({ data, convertTemp, units }) => {
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+    <div className="bg-[#2d2c3c] text-white rounded-3xl shadow-lg p-6 mb-6">
       <h2 className="text-xl font-semibold mb-4">Hourly Forecast</h2>
       <div className="flex space-x-4 overflow-x-auto">
         {data.list.slice(0, 12).map((hour: any, index: number) => (

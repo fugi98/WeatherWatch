@@ -8,7 +8,6 @@ import {
   HomeIcon,
   MapPinIcon,
   CalendarIcon,
-  Cog6ToothIcon,
   Bars3Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
@@ -117,11 +116,11 @@ const Forecast: React.FC = () => {
   const uniqueDates = getUniqueDates(forecast.list);
 
   return (
-    <div className="flex min-h-screen bg-[#0e1837db] overflow-x-hidden">
+    <div className="flex min-h-screen bg-gradient-custom overflow-x-hidden">
       {/* Sidebar */}
       <div
         className={`fixed top-0 left-0 ${sidebarOpen ? "h-screen bg-opacity-95" : "h-auto"
-          } w-full transition-transform duration-300 bg-[#03011b] p-4 flex flex-col items-center z-50 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
+          } w-full transition-transform duration-300 bg-[#2d2c3c] pt-[7rem] flex flex-col items-center z-50 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
           } md:w-20 md:translate-x-0 md:relative md:h-auto md:bg-opacity-100`}
       >
         {/* Hamburger Toggle Button */}
@@ -151,14 +150,11 @@ const Forecast: React.FC = () => {
           <Link href="/calendar">
             <CalendarIcon className="h-6 w-6 text-white" />
           </Link>
-          <Link href="#">
-            <Cog6ToothIcon className="h-6 w-6 text-white" />
-          </Link>
         </div>
       </div>
 
       {/* Main content */}
-      <div className="flex-1 p-4 sm:p-6 md:p-8 lg:p-10 bg-[#0e1837db] bg-opacity-80 w-full flex flex-col overflow-hidden">
+      <div className="flex-1 p-4 sm:p-6 md:p-8 lg:p-10 bg-gradient-custom w-full flex flex-col overflow-hidden">
         {/* Top section: SearchBar and Unit Toggle */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 space-y-4 sm:space-y-0 sm:space-x-4">
           {/* Hamburger for mobile */}
@@ -173,7 +169,7 @@ const Forecast: React.FC = () => {
           <SearchBar className="flex-1 w-full" onSearch={handleSearch} />
           <button
             onClick={toggleUnits}
-            className="bg-sky-600 text-white px-4 py-2 rounded-full"
+            className="bg-[#cae8ea] text-black px-4 py-2 rounded-full"
           >
             Switch to {units === "metric" ? "Fahrenheit" : "Celsius"}
           </button>
@@ -197,7 +193,7 @@ const Forecast: React.FC = () => {
               const dayForecast = getForecastForDate(date);
               if (!dayForecast) return null;
               return (
-                <div key={index} className="bg-[#1a2a4a] p-4 rounded-lg shadow-lg">
+                <div key={index} className="bg-[#2d2c3c] p-4 rounded-lg shadow-lg">
                   <h3 className="text-lg font-semibold text-white mb-2">{date}</h3>
                   <div className="flex items-center justify-between">
                     <img
@@ -230,7 +226,7 @@ const Forecast: React.FC = () => {
         </div>
 
         {/* Hourly Forecast */}
-        <div className="mb-8 bg-blue-600 rounded-lg p-4 ">
+        <div className="mb-8 bg-[#2d2c3c] rounded-lg p-4 ">
           <h2 className="text-2xl font-bold text-white mb-4">Hourly Forecast</h2>
           <div className="overflow-x-auto">
             <div className="flex flex-nowrap space-x-4">
@@ -258,7 +254,7 @@ const Forecast: React.FC = () => {
           <h2 className="text-2xl font-bold text-white mb-4">Long Term Outlook</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {forecast.list.filter((_, index) => index % 8 === 0).map((item, index) => (
-              <div key={index} className="bg-[#1a2a4a] p-4 rounded-lg shadow-lg">
+              <div key={index} className="bg-[#2d2c3c] p-4 rounded-lg shadow-lg">
                 <h3 className="text-lg font-semibold text-white mb-2">
                   {new Date(item.dt * 1000).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
                 </h3>

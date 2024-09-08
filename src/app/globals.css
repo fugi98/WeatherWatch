@@ -20,7 +20,7 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: #03011b;
+  background: #2d2c3c;
 }
 
 @layer utilities {
@@ -32,6 +32,7 @@ body {
 .custom-calendar {
   width: 100% !important;
   font-size: 1.8rem;
+  background: #cae8ea !important;
 }
 
 

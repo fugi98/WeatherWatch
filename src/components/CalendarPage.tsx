@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import useSWR from "swr";
-import { HomeIcon, MapPinIcon, CalendarIcon, Cog6ToothIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { HomeIcon, MapPinIcon, CalendarIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { fetcher, kelvinToCelsius } from "../utils/helpers";
@@ -113,11 +113,11 @@ const CalendarPage: React.FC = () => {
   );
 
   return (
-    <div className="flex min-h-screen bg-[#0e1837db] overflow-x-hidden">
+    <div className="flex min-h-screen bg-gradient-custom  overflow-x-hidden">
       {/* Sidebar */}
       <div
         className={`fixed top-0 left-0 ${sidebarOpen ? "h-screen bg-opacity-95" : "h-auto"
-          } w-full transition-transform duration-300 bg-[#03011b] p-4 flex flex-col items-center z-50 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
+          } w-full transition-transform duration-300 bg-[#2d2c3c] pt-[7rem] flex flex-col items-center z-50 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
           } md:w-20 md:translate-x-0 md:relative md:h-auto md:bg-opacity-100`}
       >
         {/* Hamburger Toggle Button */}
@@ -147,13 +147,10 @@ const CalendarPage: React.FC = () => {
           <Link href="/calendar">
             <CalendarIcon className="h-6 w-6 text-white" />
           </Link>
-          <a href="#">
-            <Cog6ToothIcon className="h-6 w-6 text-white" />
-          </a>
         </div>
       </div>
 
-      <div className="flex-1 p-4 sm:p-6 md:p-8 lg:p-10 bg-[#0e1837db] bg-opacity-80 w-full flex flex-col overflow-hidden">
+      <div className="flex-1 p-4 sm:p-6 md:p-8 lg:p-10 bg-gradient-custom  w-full flex flex-col overflow-hidden">
         {/* Top section: SearchBar and Unit Toggle */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 space-y-4 sm:space-y-0 sm:space-x-4">
           {/* Hamburger for mobile */}
@@ -168,7 +165,7 @@ const CalendarPage: React.FC = () => {
           <SearchBar className="flex-1 w-full" onSearch={handleSearch} />
           <button
             onClick={toggleUnits}
-            className="bg-sky-600 text-white px-4 py-2 rounded-full"
+            className="bg-[#cae8ea] text-black px-4 py-2 rounded-full"
           >
             Switch to {units === "metric" ? "Fahrenheit" : "Celsius"}
           </button>
@@ -188,7 +185,7 @@ const CalendarPage: React.FC = () => {
           <Calendar
             onChange={handleDateChange}
             value={selectedDate}
-            className="custom-calendar w-full"
+            className="custom-calendar rounded-3xl w-full"
             tileClassName={({ date, view }) =>
               view === "month"
                 ? date.getMonth() !== new Date().getMonth()
@@ -196,6 +193,7 @@ const CalendarPage: React.FC = () => {
                   : "text-black"
                 : undefined
             }
+              
           />
         </div>
 
@@ -210,7 +208,7 @@ const CalendarPage: React.FC = () => {
                 {filteredForecast.slice(0, 12).map((item) => (
                   <div
                     key={item.dt}
-                    className="bg-[#1e3354] p-4 rounded-lg flex flex-col justify-between shadow-md text-white"
+                    className="bg-[#2d2c3c] p-4 rounded-lg flex flex-col justify-between shadow-md text-white"
                   >
                     <div className="flex justify-between items-center">
                       <p className="font-bold">

@@ -12,7 +12,7 @@ const LongTermOutlook: React.FC<LongTermOutlookProps> = ({ data, convertTemp, un
   const longTermForecast = data.list.filter((_: any, index: number) => index % 8 === 0)
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6">
+    <div className="bg-[#2d2c3c] rounded-3xl text-white shadow-lg p-6">
       <h2 className="text-xl font-semibold mb-4">Long Term Outlook</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
         {longTermForecast.map((day: any, index: number) => (

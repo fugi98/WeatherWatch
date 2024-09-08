@@ -8,7 +8,6 @@ import {
   HomeIcon,
   MapPinIcon,
   CalendarIcon,
-  Cog6ToothIcon,
   Bars3Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
@@ -27,6 +26,8 @@ const LocationPage: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [locations, setLocations] = useState<string[]>([]);
   const [satelliteView, setSatelliteView] = useState(false);
+  const [selectedLocationWeather, setSelectedLocationWeather] = useState<any>(null);
+  const [mapCenter, setMapCenter] = useState<[number, number]>([51.5074, -0.1278]);
 
   const router = useRouter();
 
@@ -35,7 +36,6 @@ const LocationPage: React.FC = () => {
     fetcher as (url: string) => Promise<any>
   );
 
-  // Fetch weather data for each saved location
   const { data: savedLocationWeathers, error: savedLocationErrors } = useSWR(
     locations.length > 0 ? locations.map(loc => `https://api.openweathermap.org/data/2.5/weather?q=${loc}&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY}`) : null,
     (urls: string[]) => Promise.all(urls.map(url => fetcher(url)))
@@ -88,6 +88,15 @@ const LocationPage: React.FC = () => {
     setSatelliteView(!satelliteView);
   };
 
+  const handleSavedLocationClick = (index: number) => {
+    const weather = savedLocationWeathers && savedLocationWeathers[index];
+    if (weather) {
+      setSelectedLocationWeather(weather);
+      setLocation(locations[index]);
+      setMapCenter([weather.coord.lat, weather.coord.lon]);
+    }
+  };
+
   if (currentError) return <div className="text-white">Failed to load weather data</div>;
   if (!currentWeather) {
     return (
@@ -101,12 +110,14 @@ const LocationPage: React.FC = () => {
     );
   }
 
+  const displayedWeather = selectedLocationWeather || currentWeather;
+
   return (
-    <div className="flex min-h-screen bg-[#0e1837db]">
+    <div className="flex min-h-screen bg-gradient-custom">
       {/* Sidebar */}
       <div
         className={`fixed top-0 left-0 ${sidebarOpen ? "h-screen bg-opacity-95" : "h-auto"
-          } w-full transition-transform duration-300 bg-[#03011b] p-4 flex flex-col items-center z-50 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
+          } w-full transition-transform duration-300 bg-[#2d2c3c] pt-[7rem] flex flex-col items-center z-[999] ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
           } md:w-20 md:translate-x-0 md:relative md:h-auto md:bg-opacity-100`}
       >
         <button
@@ -125,7 +136,7 @@ const LocationPage: React.FC = () => {
         >
           <HomeIcon />
         </button>
-        <div className="flex flex-col space-y-8">
+        <div className="flex flex-col justify-between item-center space-y-8">
           <Link href="/detailed-forecast">
             <ForecastIcon className="h-8 w-8 text-white" />
           </Link>
@@ -135,9 +146,6 @@ const LocationPage: React.FC = () => {
           <Link href="/calendar">
             <CalendarIcon className="h-6 w-6 text-white" />
           </Link>
-          <a href="#">
-            <Cog6ToothIcon className="h-6 w-6 text-white" />
-          </a>
         </div>
       </div>
 
@@ -154,45 +162,63 @@ const LocationPage: React.FC = () => {
             </button>
           </div>
           <SearchBar className="flex-1 w-full" onSearch={handleSearch} />
-          <button onClick={toggleUnits} className="bg-sky-600 text-white px-4 py-2 rounded-full">
+          <button onClick={toggleUnits} className="bg-[#cae8ea] text-black px-4 py-2 rounded-full">
             Switch to {units === "metric" ? "Fahrenheit" : "Celsius"}
           </button>
           <button
             onClick={toggleSatelliteView}
-            className="bg-sky-600 text-white px-4 py-2 rounded-full bg-green-400"
+            className="text-black px-4 py-2 rounded-full bg-[#7dff9d]"
           >
             Switch to {satelliteView ? "Map View" : "Satellite View"}
           </button>
         </div>
 
-        {/* Current Weather Card */}
-        <div className="bg-[#1e3a8a] text-white rounded-lg p-6 shadow-md relative">
-          <div className="absolute right-4 top-4 text-right">
-            <p className="text-sm">{new Date().toLocaleDateString()}</p>
-            <p className="text-sm">Current Time: {new Date().toLocaleTimeString()}</p>
-          </div>
-          <h2 className="text-lg font-semibold mb-4">Current Weather</h2>
-          <div className="flex justify-between items-center mb-6">
-            <div className="flex flex-col">
-              <p className="text-6xl font-bold">
-                {units === "metric" ? kelvinToCelsius(currentWeather.main.temp).toFixed(1) : kelvinToFahrenheit(currentWeather.main.temp).toFixed(1)}°
-                {units === "metric" ? "C" : "F"}
-              </p>
-              <p className="text-lg">{currentWeather.weather[0].description}</p>
+        {/* Current Weather Card and Map Component Container */}
+        <div className="flex flex-col lg:flex-row gap-6">
+          {/* Current Weather Card */}
+          <div className="bg-[#2d2c3c] lg:w-1/2 text-white rounded-3xl p-6 shadow-md relative flex-1 md:h-[300px]">
+            <div className="absolute right-4 top-4 text-right">
+              <p className="text-sm">{new Date().toLocaleDateString()}</p>
+              <p className="text-sm"> {new Date().toLocaleTimeString()}</p>
             </div>
-            <WeatherIcon iconCode={currentWeather.weather[0].icon} className="w-24 h-24" />
+            <h2 className="text-2xl font-semibold mb-4">Current Weather</h2>
+            <p className="text-2xl font-bold">{location}</p>
+            <div className="flex flex-col justify-between mb-6">
+              <div className="flex flex-row items-center mb-6">
+                {/* Increased WeatherIcon Size */}
+                <WeatherIcon iconCode={displayedWeather.weather[0].icon} className="w-10 h-10" />
+                <p className="text-4xl font-bold">
+                  {units === "metric" ? kelvinToCelsius(displayedWeather.main.temp).toFixed(1) : kelvinToFahrenheit(displayedWeather.main.temp).toFixed(1)}°
+                  {units === "metric" ? "C" : "F"}
+                </p>
+              </div>
+              <p className="text-lg">{displayedWeather.weather[0].description}</p>
+            </div>
+            <div className="text-sm">
+              <p>Humidity: {displayedWeather.main.humidity}%</p>
+              <p>Wind: {displayedWeather.wind.speed} m/s</p>
+            </div>
           </div>
-          <div className="text-sm">
-            <p className="font-bold">London, GB</p>
-            <p>Humidity: {currentWeather.main.humidity}%</p>
-            <p>Wind: {currentWeather.wind.speed} m/s</p>
+
+          {/* Map Component */}
+          <div className=" relative w-full z-1 lg:w-1/2 h-[400px] md:h-[300px]">
+            {!currentWeather ? (
+              <div className="relative inset-0 z-1 flex items-center justify-center text-white">
+                <p>Loading map...</p>
+              </div>
+            ) : (
+              <DynamicMap
+                className="relative z-1"
+                center={mapCenter}
+                zoom={10}
+                location={location}
+                satelliteView={satelliteView}
+                savedLocations={savedLocationWeathers?.map((weather) => [weather.coord.lat, weather.coord.lon]) || []}
+              />
+            )}
           </div>
         </div>
 
-        {/* Map Component */}
-        <div className="mt-6" style={{ height: '500px' }}>
-          <DynamicMap center={[51.5074, -0.1278]} zoom={10} location={location} />
-        </div>
 
         {/* Saved Locations */}
         <div className="mt-6">
@@ -201,24 +227,27 @@ const LocationPage: React.FC = () => {
             {locations.map((loc, index) => (
               <div
                 key={index}
-                className="bg-white p-4 rounded-lg shadow-md cursor-pointer hover:bg-gray-50 transition-colors relative"
+                className="bg-[#2d2c3c] text-white p-4 rounded-3xl shadow-md cursor-pointer hover:bg-gray-500 transition-colors relative"
+                onClick={() => handleSavedLocationClick(index)}
               >
                 <h2 className="text-lg font-bold">{loc}</h2>
                 {savedLocationWeathers && savedLocationWeathers[index] ? (
                   <div className="mt-2">
-                    <p className="text-lg font-bold">
-                      {units === "metric" ? kelvinToCelsius(savedLocationWeathers[index].main.temp).toFixed(1) : kelvinToFahrenheit(savedLocationWeathers[index].main.temp).toFixed(1)}°
-                      {units === "metric" ? "C" : "F"}
-                    </p>
-                    <p className="text-sm">{savedLocationWeathers[index].weather[0].description}</p>
-                    <WeatherIcon iconCode={savedLocationWeathers[index].weather[0].icon} className="w-16 h-16" />
+                    <div className="flex flex-row item-center mt-2 p-2">
+                      <WeatherIcon iconCode={savedLocationWeathers[index].weather[0].icon} className="w-10 h-10" />
+                      <p className="text-lg item-center p-2 font-bold">
+                        {units === "metric" ? kelvinToCelsius(savedLocationWeathers[index].main.temp).toFixed(1) : kelvinToFahrenheit(savedLocationWeathers[index].main.temp).toFixed(1)}°
+                        {units === "metric" ? "C" : "F"}
+                      </p>
+                    </div>
+                    <p className="text-lg font-bold">{savedLocationWeathers[index].weather[0].description}</p>
                   </div>
                 ) : (
                   <p className="text-sm">Loading weather data...</p>
                 )}
                 <button
                   onClick={() => removeLocation(loc)}
-                  className="absolute top-2 right-2 text-red-500"
+                  className="absolute top-4 right-8 text-red-500"
                 >
                   X
                 </button>

@@ -4,34 +4,38 @@ import { CloudRainIcon, SnowIcon, ThunderstormIcon, MoonCloudIcon, RainIcon, Sto
 
 interface WeatherIconProps {
   condition?: string; // Make this optional
-  size?: number;
+  size?: number; // Make size optional
   iconCode: string; // Ensure this prop is included
   className?: string; // Make this optional as well
 }
 
-export function WeatherIcon({ condition = '', size = 24, className = '' }: WeatherIconProps) {
+export function WeatherIcon({ condition = '', size, className = '' }: WeatherIconProps) {
   if (!condition) {
     condition = 'clouds'; // Fallback condition if none provided
   }
   
+  const iconSize = size ? { width: size, height: size } : {};
+
   switch (condition.toLowerCase()) {
     case 'clear':
-      return <SunIcon className={`text-yellow-500 ${className}`} style={{ width: size, height: size }} />;
+      return <SunIcon className={`text-yellow-500 ${className}`} style={iconSize} />;
     case 'clouds':
-      return <CloudIcon className={`text-blue-500 ${className}`} style={{ width: size, height: size }} />;
+      return <CloudIcon className={`text-blue-300 ${className}`} style={iconSize} />;
     case 'rain':
-      return <RainIcon className={`text-blue-500 ${className}`} style={{ width: size, height: size }} />;
+      return <RainIcon className={`text-blue-500 ${className}`} style={iconSize} />;
+      case 'raincloud':
+      return <CloudRainIcon className={`text-gray-500 ${className}`} style={iconSize} />;
     case 'snow':
-      return <SnowIcon className={`text-blue-200 ${className}`} style={{ width: size, height: size }} />;
+      return <SnowIcon className={`text-blue-200 ${className}`} style={iconSize} />;
     case 'thunderstorm':
-      return <ThunderstormIcon className={`text-gray-700 ${className}`} style={{ width: size, height: size }} />;
+      return <ThunderstormIcon className={`text-gray-700 ${className}`} style={iconSize} />;
     case 'moon':
-      return <MoonIcon className={`text-gray-400 ${className}`} style={{ width: size, height: size }} />;
+      return <MoonIcon className={`text-gray-400 ${className}`} style={iconSize} />;
     case 'mooncloud':
-      return <MoonCloudIcon className={`text-gray-600 ${className}`} style={{ width: size, height: size }} />;
+      return <MoonCloudIcon className={`text-gray-600 ${className}`} style={iconSize} />;
     case 'storm':
-      return <StormIcon className={`text-gray-800 ${className}`} style={{ width: size, height: size }} />;
+      return <StormIcon className={`text-gray-800 ${className}`} style={iconSize} />;
     default:
-      return <CloudIcon className={`text-gray-500 ${className}`} style={{ width: size, height: size }} />;
+      return <CloudIcon className={`text-gray-500 ${className}`} style={iconSize} />;
   }
 }

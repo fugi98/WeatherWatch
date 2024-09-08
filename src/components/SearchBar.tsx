@@ -55,10 +55,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, className }) => {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         placeholder="Search location..."
-        className="p-2 rounded-full bg-white shadow w-full"
+        className="p-2 rounded-full bg-black border border-gray-500 text-white shadow w-full"
       />
       {suggestions.length > 0 && (
-        <ul className="bg-white shadow-lg rounded-lg mt-2 max-h-60 overflow-y-auto">
+        <ul className="bg-black text-white border border-gray-500 shadow-lg rounded-lg mt-2 max-h-60 overflow-y-auto">
           {suggestions.map((suggestion, index) => (
             <li
               key={index}

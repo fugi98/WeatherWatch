@@ -25,7 +25,7 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({ data, convertTemp, unit
   const iconCode = data.weather[0].icon
 
   return (
-    <div className="flex flex-col bg-[#002F6C] bg-opacity-60 rounded-lg shadow-lg p-6 mb-6 relative">
+    <div className="flex flex-col bg-[#2d2c3c] rounded-3xl shadow-lg p-6 mb-6 relative">
       {/* Time, date, and day - for small screens only */}
       <div className="absolute top-4 right-4 text-blue-100 text-right hidden sm:block">
         <p className="text-lg">{dayName}, {monthName} {date}, {year}</p>

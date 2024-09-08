@@ -7,209 +7,122 @@ interface IconProps {
 export const CloudRainIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
+    width="16"
+    height="16"
+    fill="currentColor"
+    className="bi bi-cloud-drizzle-fill"
+    viewBox="0 0 16 16"
     {...props}
   >
-    {/* Cloud */}
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M12 4a4 4 0 00-4 4H7a5 5 0 00-5 5v1h20v-1a5 5 0 00-5-5h-1a4 4 0 00-4-4z"
-      fill="#E0F7FA" // Lightest blue-white fill
-      stroke="#B3E5FC" // Light blue border
-    />
-    {/* Droplets */}
-    <path
-      fill="#00B0FF" // Blue color for droplets
-      d="M8 19c0 1.105-1.345 2-3 2s-3-.895-3-2 1.345-2 3-2 3 .895 3 2zM13 19c0 1.105-1.345 2-3 2s-3-.895-3-2 1.345-2 3-2 3 .895 3 2zM18 19c0 1.105-1.345 2-3 2s-3-.895-3-2 1.345-2 3-2 3 .895 3 2zM10 21l-1.5 3m3-3l-1.5 3m4-3l-1.5 3m2-3l-1.5 3m4-3l-1.5 3" // Additional droplets
-    />
+    <path d="M4.158 12.025a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317m6 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317m-3.5 1.5a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317m6 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 1 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317m.747-8.498a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 11H13a3 3 0 0 0 .405-5.973"/>
   </svg>
 );
+
 
 
 export const SnowIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
+    width="16"
+    height="16"
+    fill="currentColor"
+    className="bi bi-cloud-snow-fill"
+    viewBox="0 0 16 16"
     {...props}
   >
-    {/* Snowflake Arms */}
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M12 2v20m10-10H2m15.5-7.5L8.5 16.5m0-9L18.5 16.5"
-      stroke="#B3E5FC" // Light blue for snowflake arms
-    />
-    {/* Snowflake Circles */}
-    <circle cx="12" cy="4" r="1" fill="#E0F7FA" />
-    <circle cx="12" cy="20" r="1" fill="#E0F7FA" />
-    <circle cx="4" cy="12" r="1" fill="#E0F7FA" />
-    <circle cx="20" cy="12" r="1" fill="#E0F7FA" />
-    <circle cx="7.5" cy="7.5" r="1" fill="#E0F7FA" />
-    <circle cx="16.5" cy="16.5" r="1" fill="#E0F7FA" />
-    <circle cx="7.5" cy="16.5" r="1" fill="#E0F7FA" />
-    <circle cx="16.5" cy="7.5" r="1" fill="#E0F7FA" />
+    <path d="M2.625 11.5a.25.25 0 0 1 .25.25v.57l.501-.287a.25.25 0 0 1 .248.434l-.495.283.495.283a.25.25 0 0 1-.248.434l-.501-.286v.569a.25.25 0 1 1-.5 0v-.57l-.501.287a.25.25 0 0 1-.248-.434l.495-.283-.495-.283a.25.25 0 0 1 .248-.434l.501.286v-.569a.25.25 0 0 1 .25-.25m2.75 2a.25.25 0 0 1 .25.25v.57l.5-.287a.25.25 0 0 1 .249.434l-.495.283.495.283a.25.25 0 0 1-.248.434l-.501-.286v.569a.25.25 0 1 1-.5 0v-.57l-.501.287a.25.25 0 0 1-.248-.434l.495-.283-.495-.283a.25.25 0 0 1 .248-.434l.501.286v-.569a.25.25 0 0 1 .25-.25m5.5 0a.25.25 0 0 1 .25.25v.57l.5-.287a.25.25 0 0 1 .249.434l-.495.283.495.283a.25.25 0 0 1-.248.434l-.501-.286v.569a.25.25 0 0 1-.5 0v-.57l-.501.287a.25.25 0 0 1-.248-.434l.495-.283-.495-.283a.25.25 0 0 1 .248-.434l.501.286v-.569a.25.25 0 0 1 .25-.25m-2.75-2a.25.25 0 0 1 .25.25v.57l.5-.287a.25.25 0 0 1 .249.434l-.495.283.495.283a.25.25 0 0 1-.248.434l-.501-.286v.569a.25.25 0 1 1-.5 0v-.57l-.501.287a.25.25 0 0 1-.248-.434l.495-.283-.495-.283a.25.25 0 0 1 .248-.434l.501.286v-.569a.25.25 0 0 1 .25-.25m5.5 0a.25.25 0 0 1 .25.25v.57l.5-.287a.25.25 0 0 1 .249.434l-.495.283.495.283a.25.25 0 0 1-.248.434l-.501-.286v.569a.25.25 0 0 1-.5 0v-.57l-.501.287a.25.25 0 1 1-.248-.434l.495-.283-.495-.283a.25.25 0 0 1 .248-.434l.501.286v-.569a.25.25 0 0 1 .25-.25m-.22-7.223a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 10.25H13a3 3 0 0 0 .405-5.973"/>
   </svg>
 );
+
 
 export const ForecastIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 64 64"
-    fill="none"
-    stroke="currentColor"
+    width="16"
+    height="16"
+    fill="currentColor"
+    className="bi bi-cloud-sun"
+    viewBox="0 0 16 16"
     {...props}
   >
-    <circle cx="32" cy="20" r="10" fill="#FFD700" /> {/* Sun */}
-    <path
-      d="M48 40c-2 0-4-1-6-2-2 1-4 2-6 2-6 0-10-4-10-10 0-4 3-8 8-9 2 0 4 1 6 2 2-1 4-2 6-2 6 0 10 4 10 10 0 5-4 9-8 9z"
-      fill="#B0C4DE"
-    /> {/* Cloud */}
-    <line x1="30" y1="50" x2="30" y2="60" stroke="#00BFFF" strokeWidth="2" strokeLinecap="round" /> {/* Rain Drop 1 */}
-    <line x1="40" y1="50" x2="40" y2="60" stroke="#00BFFF" strokeWidth="2" strokeLinecap="round" /> {/* Rain Drop 2 */}
+    <path d="M7 8a3.5 3.5 0 0 1 3.5 3.555.5.5 0 0 0 .624.492A1.503 1.503 0 0 1 13 13.5a1.5 1.5 0 0 1-1.5 1.5H3a2 2 0 1 1 .1-3.998.5.5 0 0 0 .51-.375A3.5 3.5 0 0 1 7 8m4.473 3a4.5 4.5 0 0 0-8.72-.99A3 3 0 0 0 3 16h8.5a2.5 2.5 0 0 0 0-5z"/>
+    <path d="M10.5 1.5a.5.5 0 0 0-1 0v1a.5.5 0 0 0 1 0zm3.743 1.964a.5.5 0 1 0-.707-.707l-.708.707a.5.5 0 0 0 .708.708zm-7.779-.707a.5.5 0 0 0-.707.707l.707.708a.5.5 0 1 0 .708-.708zm1.734 3.374a2 2 0 1 1 3.296 2.198q.3.423.516.898a3 3 0 1 0-4.84-3.225q.529.017 1.028.129m4.484 4.074c.6.215 1.125.59 1.522 1.072a.5.5 0 0 0 .039-.742l-.707-.707a.5.5 0 0 0-.854.377M14.5 6.5a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1z"/>
   </svg>
 );
 
-export const WindIcon: React.FC<IconProps> = ({ className }) => (
+
+export const WindIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
-    className={className}
     xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
+    width="16"
+    height="16"
+    fill="currentColor"
+    className="bi bi-wind"
+    viewBox="0 0 16 16"
+    {...props}
   >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M4 4h16M4 10h12M4 16h8"
-    />
+    <path d="M12.5 2A2.5 2.5 0 0 0 10 4.5a.5.5 0 0 1-1 0A3.5 3.5 0 1 1 12.5 8H.5a.5.5 0 0 1 0-1h12a2.5 2.5 0 0 0 0-5m-7 1a1 1 0 0 0-1 1 .5.5 0 0 1-1 0 2 2 0 1 1 2 2h-5a.5.5 0 0 1 0-1h5a1 1 0 0 0 0-2M0 9.5A.5.5 0 0 1 .5 9h10.042a3 3 0 1 1-3 3 .5.5 0 0 1 1 0 2 2 0 1 0 2-2H.5a.5.5 0 0 1-.5-.5"/>
   </svg>
 );
+
 
 export const ThunderstormIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
-    {...props}
     xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
+    width="16"
+    height="16"
+    fill="currentColor"
+    className="bi bi-cloud-lightning-rain"
+    viewBox="0 0 16 16"
+    {...props}
   >
-    {/* Cloud */}
-    <path
-      d="M19.35 10.04a6 6 0 00-11.58 0A4.5 4.5 0 002 14.5 4.5 4.5 0 006.5 19h12a4.5 4.5 0 004.5-4.5 4.5 4.5 0 00-3.65-4.96z"
-      fill="#B3E5FC" // Light blue for cloud
-      stroke="#90CAF9" // Slightly darker blue for border
-      strokeWidth="2"
-    />
-    {/* Lightning Bolts */}
-    <path
-      d="M13 12l-2 6h5l-2 6 2-6h-5l2-6z"
-      fill="#FFC107" // Yellow color for lightning
-      stroke="#FFA000" // Darker yellow for border
-      strokeWidth="2"
-    />
-    <path
-      d="M10 8l-2 6h5l-2 6 2-6h-5l2-6z"
-      fill="#FFC107" // Yellow color for lightning
-      stroke="#FFA000" // Darker yellow for border
-      strokeWidth="2"
-    />
-    <path
-      d="M15 6l-2 6h5l-2 6 2-6h-5l2-6z"
-      fill="#FFC107" // Yellow color for lightning
-      stroke="#FFA000" // Darker yellow for border
-      strokeWidth="2"
-    />
-    <path
-      d="M12 10l-2 6h5l-2 6 2-6h-5l2-6z"
-      fill="#FFC107" // Yellow color for lightning
-      stroke="#FFA000" // Darker yellow for border
-      strokeWidth="2"
-    />
-    {/* Water Droplets */}
-    <path
-      d="M7 21l-1.5 3m3-3l-1.5 3m4-3l-1.5 3m2-3l-1.5 3m4-3l-1.5 3"
-      stroke="#00B0FF" // Blue color for water droplets
-      strokeWidth="2"
-    />
+    <path d="M2.658 11.026a.5.5 0 0 1 .316.632l-.5 1.5a.5.5 0 1 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.316m9.5 0a.5.5 0 0 1 .316.632l-.5 1.5a.5.5 0 1 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.316m-7.5 1.5a.5.5 0 0 1 .316.632l-.5 1.5a.5.5 0 1 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.316m9.5 0a.5.5 0 0 1 .316.632l-.5 1.5a.5.5 0 1 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.316m-.753-8.499a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 10H13a3 3 0 0 0 .405-5.973M8.5 1a4 4 0 0 1 3.976 3.555.5.5 0 0 0 .5.445H13a2 2 0 0 1 0 4H3.5a2.5 2.5 0 1 1 .605-4.926.5.5 0 0 0 .596-.329A4 4 0 0 1 8.5 1M7.053 11.276A.5.5 0 0 1 7.5 11h1a.5.5 0 0 1 .474.658l-.28.842H9.5a.5.5 0 0 1 .39.812l-2 2.5a.5.5 0 0 1-.875-.433L7.36 14H6.5a.5.5 0 0 1-.447-.724z"/>
   </svg>
 );
 
+
 export const MoonCloudIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
-    {...props}
     xmlns="http://www.w3.org/2000/svg"
-    width="24" // Increased size for better visibility
-    height="24"
-    fill="none"
-    stroke="currentColor"
+    width="16"
+    height="16"
+    fill="currentColor"
+    className="bi bi-cloud-moon"
     viewBox="0 0 16 16"
+    {...props}
   >
-    {/* Cloud and Moon SVG Path with Colors */}
-    <path
-      d="M7 8a3.5 3.5 0 0 1 3.5 3.555.5.5 0 0 0 .625.492A1.503 1.503 0 0 1 13 13.5a1.5 1.5 0 0 1-1.5 1.5H3a2 2 0 1 1 .1-3.998.5.5 0 0 0 .509-.375A3.5 3.5 0 0 1 7 8m4.473 3a4.5 4.5 0 0 0-8.72-.99A3 3 0 0 0 3 16h8.5a2.5 2.5 0 0 0 0-5z"
-      fill="#B3E5FC" // Light blue for cloud
-      stroke="#90CAF9" // Slightly darker blue for cloud border
-      strokeWidth="1"
-    />
-    <path
-      d="M11.286 1.778a.5.5 0 0 0-.565-.755 4.595 4.595 0 0 0-3.18 5.003 5.5 5.5 0 0 1 1.055.209A3.6 3.6 0 0 1 9.83 2.617a4.593 4.593 0 0 0 4.31 5.744 3.58 3.58 0 0 1-2.241.634q.244.477.394 1a4.59 4.59 0 0 0 3.624-2.04.5.5 0 0 0-.565-.755 3.593 3.593 0 0 1-4.065-5.422z"
-      fill="#FFEB3B" // Light yellow for crescent moon
-      stroke="#FDD835" // Slightly darker yellow for moon border
-      strokeWidth="1"
-    />
+    <path d="M7 8a3.5 3.5 0 0 1 3.5 3.555.5.5 0 0 0 .625.492A1.503 1.503 0 0 1 13 13.5a1.5 1.5 0 0 1-1.5 1.5H3a2 2 0 1 1 .1-3.998.5.5 0 0 0 .509-.375A3.5 3.5 0 0 1 7 8m4.473 3a4.5 4.5 0 0 0-8.72-.99A3 3 0 0 0 3 16h8.5a2.5 2.5 0 0 0 0-5z"/>
+    <path d="M11.286 1.778a.5.5 0 0 0-.565-.755 4.595 4.595 0 0 0-3.18 5.003 5.5 5.5 0 0 1 1.055.209A3.6 3.6 0 0 1 9.83 2.617a4.593 4.593 0 0 0 4.31 5.744 3.58 3.58 0 0 1-2.241.634q.244.477.394 1a4.59 4.59 0 0 0 3.624-2.04.5.5 0 0 0-.565-.755 3.593 3.593 0 0 1-4.065-5.422z"/>
   </svg>
 );
+
 
 
 export const RainIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
-    {...props}
     xmlns="http://www.w3.org/2000/svg"
-    fill="none"
+    width="16"
+    height="16"
+    fill="currentColor"
+    className="bi bi-cloud-rain"
     viewBox="0 0 16 16"
-    stroke="currentColor"
-    width="24" // Increased size for better visibility
-    height="24"
+    {...props}
   >
-    {/* Cloud */}
-    <path
-      d="M4.176 11.032a.5.5 0 0 1 .292.643l-1.5 4a.5.5 0 0 1-.936-.35l1.5-4a.5.5 0 0 1 .644-.293m3 0a.5.5 0 0 1 .292.643l-1.5 4a.5.5 0 0 1-.936-.35l1.5-4a.5.5 0 0 1 .644-.293m3 0a.5.5 0 0 1 .292.643l-1.5 4a.5.5 0 0 1-.936-.35l1.5-4a.5.5 0 0 1 .644-.293m3 0a.5.5 0 0 1 .292.643l-1.5 4a.5.5 0 0 1-.936-.35l1.5-4a.5.5 0 0 1 .644-.293m.229-7.005a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 10H13a3 3 0 0 0 .405-5.973"
-      fill="#90CAF9" // Cloud fill color
-      stroke="lightblue" // Light blue border color
-      strokeWidth="1" // Border thickness
-    />
-    {/* Droplets */}
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2"
-      d="M4 12l-1 2m2-2l-1 2m4-2l-1 2m2-2l-1 2m4-2l-1 2"
-      stroke="lightblue" // Updated color for the droplets
-    />
+    <path d="M4.158 12.025a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317m3 0a.5.5 0 0 1 .316.633l-1 3a.5.5 0 0 1-.948-.316l1-3a.5.5 0 0 1 .632-.317m3 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317m3 0a.5.5 0 0 1 .316.633l-1 3a.5.5 0 1 1-.948-.316l1-3a.5.5 0 0 1 .632-.317m.247-6.998a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 11H13a3 3 0 0 0 .405-5.973M8.5 2a4 4 0 0 1 3.976 3.555.5.5 0 0 0 .5.445H13a2 2 0 0 1 0 4H3.5a2.5 2.5 0 1 1 .605-4.926.5.5 0 0 0 .596-.329A4 4 0 0 1 8.5 2"/>
   </svg>
 );
 
+
 export const StormIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
-    {...props}
     xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
+    width="16"
+    height="16"
+    fill="currentColor"
+    className="bi bi-cloud-lightning"
+    viewBox="0 0 16 16"
+    {...props}
   >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2"
-      d="M14 4a6 6 0 0 0-6 6v4a6 6 0 0 0 6 6h4l2 4m0-16l-2 4m-2-4l2 4m-6 0l-2-4m0 4l2 4m-6 0l2-4"
-    />
+    <path d="M13.405 4.027a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 10H13a3 3 0 0 0 .405-5.973M8.5 1a4 4 0 0 1 3.976 3.555.5.5 0 0 0 .5.445H13a2 2 0 0 1 0 4H3.5a2.5 2.5 0 1 1 .605-4.926.5.5 0 0 0 .596-.329A4 4 0 0 1 8.5 1M7.053 11.276A.5.5 0 0 1 7.5 11h1a.5.5 0 0 1 .474.658l-.28.842H9.5a.5.5 0 0 1 .39.812l-2 2.5a.5.5 0 0 1-.875-.433L7.36 14H6.5a.5.5 0 0 1-.447-.724z"/>
   </svg>
-)
+);
