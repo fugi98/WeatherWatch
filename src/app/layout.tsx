@@ -6,9 +6,9 @@ import 'leaflet/dist/leaflet.css';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Real-Time Weather Dashboard | Accurate Forecasts & Hourly Updates",
+  title: "WeatherWatch | Real-Time Weather Updates & Forecasts",
   description:
-    "Get real-time weather updates with accurate hourly forecasts, current conditions, and long-term outlooks. Stay informed with our user-friendly weather dashboard tailored for cities worldwide.",
+    "WeatherWatch provides real-time weather updates, accurate hourly forecasts, and comprehensive long-term outlooks. Stay ahead of the weather with our intuitive dashboard tailored for cities worldwide. Whether you need current conditions, detailed forecasts, or global weather insights, WeatherWatch has you covered.",
 };
 
 export default function RootLayout({

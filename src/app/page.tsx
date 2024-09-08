@@ -5,8 +5,6 @@ import WeatherDashboard from '@/components/WeatherDashboard'
 const Home: NextPage = () => {
   return (
     <div>
-
-
       <main>
         <WeatherDashboard />
       </main>
