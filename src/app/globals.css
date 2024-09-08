@@ -1,3 +1,5 @@
+/* app/globals.css */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -18,11 +20,41 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: rgb(35, 35, 36);
+  background: #03011b;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+.custom-calendar {
+  width: 100% !important;
+  font-size: 1.8rem;
+}
+
+
+/* Add this CSS to your global stylesheet or tailwind configuration */
+
+/* Spinner Animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinner {
+  width: 64px; /* Adjust size as needed */
+  height: 64px; /* Adjust size as needed */
+  border: 8px solid rgba(255, 255, 255, 0.2); /* Light border */
+  border-top: 8px solid #3498db; /* Color of the spinner */
+  border-radius: 50%;
+  animation: spin 1.5s linear infinite;
+}
+
+
+@media screen and (max-width: 600px) {
+  .custom-calendar {
+    font-size:1rem;
   }
 }

@@ -192,7 +192,7 @@ export const RainIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
       strokeLinejoin="round"
       strokeWidth="2"
       d="M4 12l-1 2m2-2l-1 2m4-2l-1 2m2-2l-1 2m4-2l-1 2"
-      stroke="" // Updated color for the droplets
+      stroke="lightblue" // Updated color for the droplets
     />
   </svg>
 );
