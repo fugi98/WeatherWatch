@@ -203,7 +203,7 @@ const LocationPage: React.FC = () => {
           {/* Map Component */}
           <div className=" relative w-full z-1 lg:w-1/2 h-[400px] md:h-[300px]">
             {!currentWeather ? (
-              <div className="relative inset-0 z-1 flex items-center justify-center text-black">
+              <div className="relative inset-0 z-1 flex items-center justify-center text-white">
                 <p>Loading map...</p>
               </div>
             ) : (
