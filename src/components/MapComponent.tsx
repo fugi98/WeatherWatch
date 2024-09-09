@@ -52,6 +52,9 @@ const MapComponent: React.FC<MapComponentProps> = ({ center, zoom, location, sat
         L.marker([lat, lon], { icon: customIcon }).addTo(mapInstance.current!);
       });
 
+      // Add marker for current location
+      L.marker(center, { icon: customIcon }).addTo(mapInstance.current!);
+
       // Cleanup function to remove map instance
       return () => {
         if (mapInstance.current) {
@@ -63,7 +66,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ center, zoom, location, sat
     }
   }, [center, zoom, satelliteView, savedLocations]);
 
-  return <div className=' relative' ref={mapRef} style={{ height: '100%', zIndex: 1  }}></div>;
+  return <div className='relative' ref={mapRef} style={{ height: '100%', zIndex: 1 }}></div>;
 };
 
 export default MapComponent;
