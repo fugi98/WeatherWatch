@@ -25,7 +25,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ center, zoom, satelliteView
           layers: [
             L.tileLayer(
               satelliteView
-                ? 'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/{time}/{tileMatrixSet}/{z}/{y}/{x}.jpg'
+                ? 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
                 : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
             ),
           ],
@@ -40,7 +40,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ center, zoom, satelliteView
 
         L.tileLayer(
           satelliteView
-            ? 'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/{time}/{tileMatrixSet}/{z}/{y}/{x}.jpg'
+            ? 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
             : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         ).addTo(mapInstance.current);
       }
