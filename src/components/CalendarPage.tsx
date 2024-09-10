@@ -117,10 +117,9 @@ const CalendarPage: React.FC = () => {
       {/* Sidebar */}
       <div
         className={`fixed top-0 left-0 ${sidebarOpen ? "h-screen bg-opacity-95" : "h-auto"
-          } w-full transition-transform duration-300 bg-[#2d2c3c] pt-[7rem] flex flex-col items-center z-50 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
+          } w-full transition-transform duration-300 bg-[#2d2c3c] pt-[7rem] flex flex-col items-center z-[999] ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
           } md:w-20 md:translate-x-0 md:relative md:h-auto md:bg-opacity-100`}
       >
-        {/* Hamburger Toggle Button */}
         <button
           className="md:hidden text-white mb-8"
           onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -131,21 +130,25 @@ const CalendarPage: React.FC = () => {
             <Bars3Icon className="h-6 w-6" />
           )}
         </button>
-        <button
-          onClick={handleHomeClick}
-          className="h-6 w-6 text-white mb-8"
-        >
-          <HomeIcon />
-        </button>
-        <div className="flex flex-col space-y-8">
-          <Link href="/detailed-forecast">
-            <ForecastIcon className="h-8 w-8 text-white" />
+        <div className={`flex flex-col items-center ${sidebarOpen ? "block" : "hidden"} md:block`}>
+          <button
+            onClick={handleHomeClick}
+            className="flex items-center space-x-2 text-white mb-8"
+          >
+            <HomeIcon className="h-6 w-6" />
+            {sidebarOpen && <span className="ml-2">Home</span>}
+          </button>
+          <Link href="/detailed-forecast" className="flex items-center space-x-2 text-white mb-8">
+            <ForecastIcon className="h-8 w-8" />
+            {sidebarOpen && <span className="ml-2">Forecast</span>}
           </Link>
-          <a href="/location">
-            <MapPinIcon className="h-6 w-6 text-white" />
+          <a href="/location" className="flex items-center space-x-2 text-white mb-8">
+            <MapPinIcon className="h-6 w-6" />
+            {sidebarOpen && <span className="ml-2">Location</span>}
           </a>
-          <Link href="/calendar">
-            <CalendarIcon className="h-6 w-6 text-white" />
+          <Link href="/calendar" className="flex items-center space-x-2 text-white">
+            <CalendarIcon className="h-6 w-6" />
+            {sidebarOpen && <span className="ml-2">Calendar</span>}
           </Link>
         </div>
       </div>

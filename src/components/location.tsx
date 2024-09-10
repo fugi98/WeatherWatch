@@ -50,6 +50,12 @@ const LocationPage: React.FC = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (currentWeather && currentWeather.coord) {
+      setMapCenter([currentWeather.coord.lat, currentWeather.coord.lon]);
+    }
+  }, [currentWeather]);
+
   const saveLocation = (newLocation: string) => {
     if (!locations.includes(newLocation)) {
       const updatedLocations = [...locations, newLocation];
@@ -130,21 +136,25 @@ const LocationPage: React.FC = () => {
             <Bars3Icon className="h-6 w-6" />
           )}
         </button>
-        <button
-          onClick={handleHomeClick}
-          className="h-6 w-6 text-white mb-8"
-        >
-          <HomeIcon />
-        </button>
-        <div className="flex flex-col justify-between item-center space-y-8">
-          <Link href="/detailed-forecast">
-            <ForecastIcon className="h-8 w-8 text-white" />
+        <div className={`flex flex-col items-center ${sidebarOpen ? "block" : "hidden"} md:block`}>
+          <button
+            onClick={handleHomeClick}
+            className="flex items-center space-x-2 text-white mb-8"
+          >
+            <HomeIcon className="h-6 w-6" />
+            {sidebarOpen && <span className="ml-2">Home</span>}
+          </button>
+          <Link href="/detailed-forecast" className="flex items-center space-x-2 text-white mb-8">
+            <ForecastIcon className="h-8 w-8" />
+            {sidebarOpen && <span className="ml-2">Forecast</span>}
           </Link>
-          <a href="/location">
-            <MapPinIcon className="h-6 w-6 text-white" />
+          <a href="/location" className="flex items-center space-x-2 text-white mb-8">
+            <MapPinIcon className="h-6 w-6" />
+            {sidebarOpen && <span className="ml-2">Location</span>}
           </a>
-          <Link href="/calendar">
-            <CalendarIcon className="h-6 w-6 text-white" />
+          <Link href="/calendar" className="flex items-center space-x-2 text-white">
+            <CalendarIcon className="h-6 w-6" />
+            {sidebarOpen && <span className="ml-2">Calendar</span>}
           </Link>
         </div>
       </div>
@@ -198,6 +208,12 @@ const LocationPage: React.FC = () => {
               <p>Humidity: {displayedWeather.main.humidity}%</p>
               <p>Wind: {displayedWeather.wind.speed} m/s</p>
             </div>
+            <button
+              onClick={() => setMapCenter([displayedWeather.coord.lat, displayedWeather.coord.lon])}
+              className="absolute bottom-4 right-4 px-4 py-2 bg-[#7dff9d] text-black rounded-full"
+            >
+              Center Map
+            </button>
           </div>
 
           {/* Map Component */}
@@ -219,40 +235,42 @@ const LocationPage: React.FC = () => {
           </div>
         </div>
 
-
         {/* Saved Locations */}
         <div className="mt-6">
-          <h2 className="text-lg text-white mb-4">Saved Locations</h2>
+          <h3 className="text-xl text-white font-semibold mb-4">Saved Locations</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {locations.map((loc, index) => (
-              <div
-                key={index}
-                className="bg-[#2d2c3c] text-white p-4 rounded-3xl shadow-md cursor-pointer hover:bg-gray-500 transition-colors relative"
-                onClick={() => handleSavedLocationClick(index)}
-              >
-                <h2 className="text-lg font-bold">{loc}</h2>
-                {savedLocationWeathers && savedLocationWeathers[index] ? (
-                  <div className="mt-2">
-                    <div className="flex flex-row item-center mt-2 p-2">
-                      <WeatherIcon iconCode={savedLocationWeathers[index].weather[0].icon} className="w-10 h-10" />
-                      <p className="text-lg item-center p-2 font-bold">
-                        {units === "metric" ? kelvinToCelsius(savedLocationWeathers[index].main.temp).toFixed(1) : kelvinToFahrenheit(savedLocationWeathers[index].main.temp).toFixed(1)}°
-                        {units === "metric" ? "C" : "F"}
-                      </p>
-                    </div>
-                    <p className="text-lg font-bold">{savedLocationWeathers[index].weather[0].description}</p>
-                  </div>
-                ) : (
-                  <p className="text-sm">Loading weather data...</p>
-                )}
-                <button
-                  onClick={() => removeLocation(loc)}
-                  className="absolute top-4 right-8 text-red-500"
+            {locations.length > 0 ? (
+              savedLocationWeathers?.map((weather, index) => (
+                <div
+                  key={index}
+                  className="bg-[#2d2c3c] text-white p-4 rounded-3xl shadow-md cursor-pointer hover:bg-gray-500 transition-colors relative"
+                  onClick={() => handleSavedLocationClick(index)}
                 >
-                  X
-                </button>
-              </div>
-            ))}
+                  <div>
+                    <p className="text-xl font-bold">{locations[index]}</p>
+                    <p>{weather.weather[0].description}</p>
+                  </div>
+                  <div className="flex flex-row item-center mt-2 p-2">
+                    <WeatherIcon iconCode={weather.weather[0].icon} className="w-10 h-10" />
+                    <p className="text-lg item-center p-2 font-bold">
+                      {units === "metric" ? kelvinToCelsius(weather.main.temp).toFixed(1) : kelvinToFahrenheit(weather.main.temp).toFixed(1)}°
+                      {units === "metric" ? "C" : "F"}
+                    </p>
+                  </div>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      removeLocation(locations[index]);
+                    }}
+                    className="absolute top-4 right-8 text-red-500 hover:text-red-700"
+                  >
+                    X
+                  </button>
+                </div>
+              ))
+            ) : (
+              <p className="text-white">No saved locations</p>
+            )}
           </div>
         </div>
       </div>

@@ -11,32 +11,41 @@ interface MapComponentProps {
   className: string;
 }
 
-const MapComponent: React.FC<MapComponentProps> = ({ center, zoom, location, satelliteView, savedLocations }) => {
+const MapComponent: React.FC<MapComponentProps> = ({ center, zoom, satelliteView, savedLocations }) => {
   const mapRef = useRef<HTMLDivElement | null>(null);
   const mapInstance = useRef<L.Map | null>(null);
 
   useEffect(() => {
     if (mapRef.current) {
-      // Initialize map if not already initialized
       if (!mapInstance.current) {
+        // Initialize map with default settings
         mapInstance.current = L.map(mapRef.current, {
           center: center,
           zoom: zoom,
           layers: [
-            L.tileLayer(satelliteView ? 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'),
+            L.tileLayer(
+              satelliteView
+                ? 'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/{time}/{tileMatrixSet}/{z}/{y}/{x}.jpg'
+                : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+            ),
           ],
         });
       } else {
-        // Update existing map instance
+        // Update map view and layers
         mapInstance.current.setView(center, zoom);
-        // Update satellite view
+
         mapInstance.current.eachLayer((layer) => {
           mapInstance.current?.removeLayer(layer);
         });
-        L.tileLayer(satelliteView ? 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mapInstance.current);
+
+        L.tileLayer(
+          satelliteView
+            ? 'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/{time}/{tileMatrixSet}/{z}/{y}/{x}.jpg'
+            : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+        ).addTo(mapInstance.current);
       }
 
-      // Define custom icon
+      // Define custom icon for markers
       const customIcon = L.icon({
         iconUrl: '/images/custom-marker-icon.png',
         iconRetinaUrl: '/images/custom-marker-icon.png',
@@ -44,18 +53,25 @@ const MapComponent: React.FC<MapComponentProps> = ({ center, zoom, location, sat
         iconSize: [25, 41],
         iconAnchor: [12, 41],
         popupAnchor: [1, -34],
-        shadowSize: [41, 41]
+        shadowSize: [41, 41],
       });
 
-      // Add markers for saved locations with custom icon
+      // Clear existing markers
+      mapInstance.current.eachLayer((layer) => {
+        if (layer instanceof L.Marker) {
+          mapInstance.current?.removeLayer(layer);
+        }
+      });
+
+      // Add markers for saved locations and current location
       savedLocations.forEach(([lat, lon]) => {
         L.marker([lat, lon], { icon: customIcon }).addTo(mapInstance.current!);
       });
 
-      // Add marker for current location
+      // Add marker for the current location
       L.marker(center, { icon: customIcon }).addTo(mapInstance.current!);
 
-      // Cleanup function to remove map instance
+      // Cleanup on unmount
       return () => {
         if (mapInstance.current) {
           mapInstance.current.off();
@@ -66,7 +82,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ center, zoom, location, sat
     }
   }, [center, zoom, satelliteView, savedLocations]);
 
-  return <div className='relative' ref={mapRef} style={{ height: '100%', zIndex: 1 }}></div>;
+  return <div className="relative" ref={mapRef} style={{ height: '100%', zIndex: 1 }}></div>;
 };
 
 export default MapComponent;
