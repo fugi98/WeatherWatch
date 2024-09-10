@@ -29,6 +29,17 @@ const LocationPage: React.FC = () => {
   const [selectedLocationWeather, setSelectedLocationWeather] = useState<any>(null);
   const [mapCenter, setMapCenter] = useState<[number, number]>([51.5074, -0.1278]);
 
+  // Get the current date and time
+  const now = new Date()
+  const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
+  const dayName = dayNames[now.getDay()]
+  const date = now.getDate()
+  const monthName = monthNames[now.getMonth()]
+  const year = now.getFullYear()
+  const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+
   const router = useRouter();
 
   const { data: currentWeather, error: currentError, mutate } = useSWR(
@@ -187,9 +198,15 @@ const LocationPage: React.FC = () => {
         <div className="flex flex-col lg:flex-row gap-6">
           {/* Current Weather Card */}
           <div className="bg-[#2d2c3c] lg:w-1/2 text-white rounded-3xl p-6 shadow-md relative flex-1 md:h-[300px]">
-            <div className="absolute right-4 top-4 text-right">
-              <p className="text-sm">{new Date().toLocaleDateString()}</p>
-              <p className="text-sm"> {new Date().toLocaleTimeString()}</p>
+            {/* Time, date, and day - for small screens only */}
+            <div className="absolute top-4 right-4 text-blue-100 text-right hidden sm:block">
+              <p className="text-lg">{dayName}, {monthName} {date}, {year}</p>
+              <p className="text-lg">Current Time: {time}</p>
+            </div>
+            {/* Time, date, and day - for small screens only */}
+            <div className="block sm:hidden mb-6 text-blue-100">
+              <p className="text-lg">{dayName}, {monthName} {date}, {year}</p>
+              <p className="text-lg">Current Time: {time}</p>
             </div>
             <h2 className="text-2xl font-semibold mb-4">Current Weather</h2>
             <p className="text-2xl font-bold">{location}</p>
