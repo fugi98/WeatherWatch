@@ -28,17 +28,18 @@ const LocationPage: React.FC = () => {
   const [satelliteView, setSatelliteView] = useState(false);
   const [selectedLocationWeather, setSelectedLocationWeather] = useState<any>(null);
   const [mapCenter, setMapCenter] = useState<[number, number]>([51.5074, -0.1278]);
+  const [error, setError] = useState<string | null>(null);
 
   // Get the current date and time
-  const now = new Date()
-  const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+  const now = new Date();
+  const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-  const dayName = dayNames[now.getDay()]
-  const date = now.getDate()
-  const monthName = monthNames[now.getMonth()]
-  const year = now.getFullYear()
-  const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+  const dayName = dayNames[now.getDay()];
+  const date = now.getDate();
+  const monthName = monthNames[now.getMonth()];
+  const year = now.getFullYear();
+  const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
   const router = useRouter();
 
@@ -64,8 +65,11 @@ const LocationPage: React.FC = () => {
   useEffect(() => {
     if (currentWeather && currentWeather.coord) {
       setMapCenter([currentWeather.coord.lat, currentWeather.coord.lon]);
+      setError(null); // Reset error if weather data is successfully fetched
+    } else if (currentError) {
+      setError('Place not found');
     }
-  }, [currentWeather]);
+  }, [currentWeather, currentError]);
 
   const saveLocation = (newLocation: string) => {
     if (!locations.includes(newLocation)) {
@@ -87,8 +91,19 @@ const LocationPage: React.FC = () => {
 
   const handleSearch = async (searchLocation: string) => {
     setLocation(searchLocation);
-    await mutate();
-    saveLocation(searchLocation);
+    setError(null); // Reset error
+    try {
+      const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searchLocation}&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY}`);
+      if (!response.ok) {
+        throw new Error('Place not found');
+      }
+      const data = await response.json();
+      setLocation(searchLocation);
+      saveLocation(searchLocation);
+      await mutate();
+    } catch (err) {
+      setError('Place not found');
+    }
   };
 
   const handleHomeClick = () => {
@@ -234,7 +249,7 @@ const LocationPage: React.FC = () => {
           </div>
 
           {/* Map Component */}
-          <div className=" relative w-full z-1 lg:w-1/2 h-[400px] md:h-[300px]">
+          <div className="relative w-full z-1 lg:w-1/2 h-[400px] md:h-[300px]">
             {!currentWeather ? (
               <div className="relative inset-0 z-1 flex items-center justify-center text-white">
                 <p>Loading map...</p>
@@ -246,12 +261,16 @@ const LocationPage: React.FC = () => {
                 zoom={10}
                 location={location}
                 satelliteView={satelliteView}
-                savedLocations={savedLocationWeathers?.map((weather) => [weather.coord.lat, weather.coord.lon]) || []}
+                savedLocations={
+                  savedLocationWeathers?.filter((weather) => weather.coord?.lat && weather.coord?.lon)
+                    .map((weather) => [weather.coord.lat, weather.coord.lon]) || []
+                }
               />
             )}
           </div>
         </div>
 
+        {/* Saved Locations */}
         {/* Saved Locations */}
         <div className="mt-6">
           <h3 className="text-xl text-white font-semibold mb-4">Saved Locations</h3>
@@ -263,17 +282,28 @@ const LocationPage: React.FC = () => {
                   className="bg-[#2d2c3c] text-white p-4 rounded-3xl shadow-md cursor-pointer hover:bg-opacity-100 hover:bg-[#cae8ea] hover:text-black hover:scale-105 transition-all duration-300 ease-in-out relative"
                   onClick={() => handleSavedLocationClick(index)}
                 >
-
                   <div>
                     <p className="text-xl font-bold">{locations[index]}</p>
-                    <p>{weather.weather[0].description}</p>
+                    {weather.weather?.[0] ? (
+                      <p>{weather.weather[0].description}</p>
+                    ) : (
+                      <p>No weather description available</p>
+                    )}
                   </div>
-                  <div className="flex flex-row item-center mt-2 p-2">
-                    <WeatherIcon iconCode={weather.weather[0].icon} className="w-10 h-10" />
-                    <p className="text-lg item-center p-2 font-bold">
-                      {units === "metric" ? kelvinToCelsius(weather.main.temp).toFixed(1) : kelvinToFahrenheit(weather.main.temp).toFixed(1)}°
-                      {units === "metric" ? "C" : "F"}
-                    </p>
+                  <div className="flex flex-row items-center mt-2 p-2">
+                    {weather.weather?.[0] && (
+                      <WeatherIcon iconCode={weather.weather[0].icon} className="w-10 h-10" />
+                    )}
+                    {weather.main?.temp ? (
+                      <p className="text-lg items-center p-2 font-bold">
+                        {units === "metric"
+                          ? kelvinToCelsius(weather.main.temp).toFixed(1)
+                          : kelvinToFahrenheit(weather.main.temp).toFixed(1)}
+                        °{units === "metric" ? "C" : "F"}
+                      </p>
+                    ) : (
+                      <p className="text-lg items-center p-2">Temp not available</p>
+                    )}
                   </div>
                   <button
                     onClick={(e) => {
@@ -291,6 +321,8 @@ const LocationPage: React.FC = () => {
             )}
           </div>
         </div>
+
+
       </div>
     </div>
   );

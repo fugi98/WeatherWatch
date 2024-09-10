@@ -16,6 +16,7 @@ interface Suggestion {
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch, className }) => {
   const [searchTerm, setSearchTerm] = useState('')
   const [suggestions, setSuggestions] = useState<Suggestion[]>([])
+  const [noResults, setNoResults] = useState(false) // New state variable
 
   const fetchSuggestions = debounce(async (query: string) => {
     if (query.trim()) {
@@ -23,9 +24,16 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, className }) => {
         `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(query)}&limit=5&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY}`
       )
       const data = await response.json()
-      setSuggestions(data.map((place: any) => ({ name: place.name, country: place.country })))
+      if (data.length > 0) {
+        setSuggestions(data.map((place: any) => ({ name: place.name, country: place.country })))
+        setNoResults(false)
+      } else {
+        setSuggestions([])
+        setNoResults(true) // Set no results to true
+      }
     } else {
       setSuggestions([])
+      setNoResults(false)
     }
   }, 300)
 
@@ -39,12 +47,14 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, className }) => {
       onSearch(searchTerm.trim())
       setSearchTerm('')
       setSuggestions([])
+      setNoResults(false)
     }
   }
 
   const handleSuggestionClick = (suggestion: string) => {
     setSearchTerm(suggestion)
     setSuggestions([])
+    setNoResults(false)
     onSearch(suggestion)
   }
 
@@ -69,6 +79,9 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, className }) => {
             </li>
           ))}
         </ul>
+      )}
+      {noResults && searchTerm.trim() && (
+        <p className="text-red-500 mt-2">Place not found</p>
       )}
     </form>
   )
