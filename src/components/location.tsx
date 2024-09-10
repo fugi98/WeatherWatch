@@ -260,9 +260,10 @@ const LocationPage: React.FC = () => {
               savedLocationWeathers?.map((weather, index) => (
                 <div
                   key={index}
-                  className="bg-[#2d2c3c] text-white p-4 rounded-3xl shadow-md cursor-pointer hover:bg-gray-500 transition-colors relative"
+                  className="bg-[#2d2c3c] text-white p-4 rounded-3xl shadow-md cursor-pointer hover:bg-opacity-100 hover:bg-[#cae8ea] hover:text-black hover:scale-105 transition-all duration-300 ease-in-out relative"
                   onClick={() => handleSavedLocationClick(index)}
                 >
+
                   <div>
                     <p className="text-xl font-bold">{locations[index]}</p>
                     <p>{weather.weather[0].description}</p>
